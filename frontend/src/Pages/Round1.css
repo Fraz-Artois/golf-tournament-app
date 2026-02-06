@@ -1,12 +1,19 @@
 /* ================= PAGE ================= */
+/* ================= PAGE ================= */
 .round-container {
-  background-color: #071426;
+  background:
+    linear-gradient(
+      rgba(15,25,45,0.75),
+      rgba(15,25,45,0.75)
+    ),
+    url("../assets/round-bg.jpg") center / cover no-repeat;
 
-  /* 3 layers:
-     1) dark overlay (top) to tone everything down
-     2) repeating logo pattern (middle)
-     3) base gradient (bottom) for depth
-  */
+  color: #f5f7fb;
+  font-family: "Poppins", sans-serif;
+  padding: 40px;
+  min-height: 100vh;
+}
+
   background-image:
     linear-gradient(rgba(7,20,38,0.88), rgba(7,20,38,0.88)),
     url("../assets/round-bg.jpg"),
