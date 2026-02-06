@@ -11,3 +11,79 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* ===== GLOBAL: stop iOS right-side white gutter / page overflow ===== */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: #071426; /* match site dark bg */
+}
+
+/* CRA root wrapper */
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: #071426;
+}
+
+/* Helps prevent sideways “bounce” showing white on iOS */
+body {
+  overscroll-behavior-x: none;
+}
+
+/* Safety: make widths predictable */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/* ===== NUCLEAR: kill real overflow on mobile (without breaking scrollable tables) ===== */
+
+/* Make sure the page background is never white */
+:root, html, body, #root {
+  background: #071426 !important;
+}
+
+/* iOS: stop layout from becoming wider than the viewport */
+:root, html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;      /* modern */
+  overflow-x: hidden;    /* fallback */
+}
+
+body, #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Contain all normal blocks so nothing can push the viewport wider.
+   IMPORTANT: we EXCLUDE table elements so your table can still be wide INSIDE its scroll wrapper. */
+*:not(table):not(thead):not(tbody):not(tr):not(td):not(th) {
+  max-width: 100%;
+}
+
+/* Common overflow culprits */
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* If any nav/header uses 100vw, force it to behave */
+header, nav {
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-x: hidden;
+}

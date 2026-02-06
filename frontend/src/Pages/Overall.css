@@ -1,204 +1,206 @@
-/* ================= PAGE BACKGROUND ================= */
+/* frontend/src/Pages/Overall.css */
 
-.overallPage {
-  min-height: 100vh;
-  padding: 28px 18px 60px;
-
-  background-image:
-    linear-gradient(
-      rgba(6, 10, 20, 0.92),
-      rgba(6, 10, 20, 0.92)
-    ),
-    url("../assets/round-bg.jpg");
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-
-  color: #ffffff;
+/* ===== Safety: prevent page-level horizontal overflow ===== */
+.overallPage,
+.overallHero,
+.overallGrid,
+.overallCard,
+.overallTableWrap,
+.overallTableScroll {
+  max-width: 100%;
 }
 
-/* ================= HEADER ================= */
+/* If anything tries to exceed, do NOT let Overall create a wider page */
+.overallPage {
+  overflow-x: hidden;
+}
 
+/* ===== Page background (match the “rounds” feel so iOS never shows white) ===== */
+.overallPage {
+  background:
+    linear-gradient(rgba(15,25,45,0.45), rgba(70,85,120,0.35)),
+    url("../assets/round-bg.jpg") center/70% no-repeat;
+  background-attachment: fixed;
+  color: #f5f7fb;
+  font-family: "Poppins", sans-serif;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+/* ===== Hero ===== */
 .overallHero {
-  max-width: 1200px;
-  margin: 0 auto 18px;
-  padding: 16px 18px 12px;
-
-  border-radius: 18px;
-  background: rgba(10, 18, 35, 0.80);
-  backdrop-filter: blur(14px);
-
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  display: block;
+  width: fit-content;
+  margin: 0 auto 26px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 2px solid #f7d87c;
+  background: rgba(25, 40, 70, 0.55);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.45),
+    inset 0 0 14px rgba(247,216,124,0.12);
+  text-align: center;
 }
 
 .overallTitle {
   margin: 0;
-  font-size: 36px;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #f7d87c;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
 
 .overallSubtitle {
-  margin-top: 8px;
-  font-size: 14px;
-  opacity: 0.85;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: rgba(245, 247, 251, 0.9);
 }
 
-/* ================= STATUS / ERROR ================= */
+/* ===== Loading / Error ===== */
+.overallStatus,
+.overallError {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
 
 .overallStatus {
-  max-width: 1200px;
-  margin: 10px auto;
-  opacity: 0.85;
+  background: rgba(8,27,55,0.65);
+  border: 1px solid rgba(165,196,243,0.25);
 }
 
 .overallError {
-  max-width: 1200px;
-  margin: 12px auto;
-  padding: 12px 14px;
-
-  border-radius: 12px;
-  background: rgba(255, 0, 0, 0.14);
-  border: 1px solid rgba(255, 0, 0, 0.35);
+  background: rgba(255, 50, 50, 0.14);
+  border: 1px solid rgba(255, 50, 50, 0.28);
 }
 
-/* ================= LAYOUT ================= */
-
+/* ===== Grid ===== */
 .overallGrid {
-  max-width: 1200px;
-  margin: 0 auto;
-
   display: grid;
+  grid-template-columns: 1fr;
   gap: 18px;
 }
 
-/* ================= TABLE CARD ================= */
-
-.overallCard {
-  border-radius: 18px;
-  padding: 14px 14px 10px;
-
-  background: rgba(10, 18, 35, 0.78);
-  backdrop-filter: blur(14px);
-
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-}
-
+/* ===== Card titles (same “bubble title” vibe as rounds) ===== */
 .overallCardTitle {
-  font-size: 15px;
-  letter-spacing: 1px;
-  margin: 2px 4px 12px;
-  text-transform: uppercase;
-  opacity: 0.95;
+  display: inline-block;
+  padding: 8px 22px;
+  margin: 0 0 14px;
+
+  background: rgba(25, 40, 70, 0.65);
+  border: 2px solid rgba(247, 216, 124, 0.7);
+  border-radius: 999px;
+
+  color: #f7d87c;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+  text-shadow: 0 0 6px rgba(0,0,0,0.6);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.45),
+    inset 0 0 12px rgba(247,216,124,0.08);
 }
 
-/* ================= TABLE ================= */
+/* Center titles on smaller screens */
+@media (max-width: 900px) {
+  .overallCardTitle {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 12px;
+    font-size: 1rem;
+  }
+}
 
-.overallTableWrap {
+/* ===== Card container ===== */
+.overallCard {
   width: 100%;
-  overflow-x: auto;                /* ✅ horizontal scroll on mobile */
-  -webkit-overflow-scrolling: touch;
-
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(0, 0, 0, 0.22);
 }
 
+/* ===== Table card (THIS is the key pattern: overflow:auto like Round pages) ===== */
+.overallTableWrap {
+  background: rgba(8,27,55,0.92);
+  border: 2px solid rgba(165,196,243,0.35);
+  border-radius: 14px;
+  padding: 16px;
+  overflow: auto; /* ✅ horizontal scroll happens here */
+  box-shadow: 0 3px 20px rgba(0,0,0,0.4);
+}
+
+/* If you keep the 2-layer structure in JSX, this makes sure the inner div
+   doesn't accidentally expand layout */
+.overallTableScroll {
+  display: block;
+  width: max-content; /* so the table can be wider than the card */
+  max-width: none;
+}
+
+/* ===== Table base ===== */
 .overallTable {
-  min-width: 720px;                /* ✅ prevents squishing */
-  width: max-content;              /* ✅ grows naturally */
   border-collapse: collapse;
-  font-size: 14px;
+  width: max-content; /* ✅ lets wide tables exist */
+  min-width: 100%;    /* ✅ but fills the card when small */
+  color: #f1f4f9;
+  font-size: 0.9rem;
 }
 
 .overallTable td {
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-  white-space: nowrap;
-  color: rgba(255, 255, 255, 0.78);
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  white-space: nowrap; /* ✅ prevents ugly wrapping */
 }
 
-/* Header row */
+/* Header row style */
 .overallHeaderRow td {
-  font-weight: 800;
-  letter-spacing: 0.4px;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.92);
-}
-
-/* Very subtle zebra */
-.overallAltRowCell {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-/* ================= LEFT ANCHOR ================= */
-
-.overallTable td:first-child {
-  color: #ffffff;
-  font-weight: 900;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.overallTable td:nth-child(2) {
-  color: rgba(255, 255, 255, 0.65);
+  background: rgba(247,216,124,0.18);
+  color: #f7d87c;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
-.overallTable td:nth-child(3) {
-  color: #ffffff;
-  font-weight: 900;
-  letter-spacing: 0.6px;
-  background: rgba(255, 255, 255, 0.06);
+/* Zebra */
+.overallAltRowCell {
+  background: rgba(255,255,255,0.04);
 }
 
-/* ================= MIDDLE DATA ================= */
-
-.overallTable td:nth-child(n+4):not(.overallTotalCell) {
-  color: rgba(255, 255, 255, 0.68);
-}
-
-/* ================= RIGHT ANCHOR (TOTAL) ================= */
-
+/* Total column emphasis */
 .overallTotalCell {
-  font-weight: 900;
-  letter-spacing: 0.4px;
-  color: #ffffff;
-
-  background: rgba(255, 255, 255, 0.08);
-
-  border-left: 1px solid rgba(255, 255, 255, 0.22);
-  border-right: 1px solid rgba(255, 255, 255, 0.22);
+  font-weight: 800;
+  background: rgba(255,255,255,0.06);
 }
 
-.overallHeaderRow .overallTotalCell {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  font-weight: 900;
-}
-
-/* ================= MOBILE TUNING ================= */
-
-@media (max-width: 768px) {
-  .overallTitle {
-    font-size: 24px;
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .overallPage {
+    padding: 20px 12px;
   }
 
-  .overallCardTitle {
-    font-size: 13px;
+  .overallTitle {
+    font-size: 1.35rem;
+  }
+
+  .overallSubtitle {
+    font-size: 0.9rem;
+  }
+
+  /* ✅ Force “wide table” behavior so card scroll is guaranteed */
+  .overallTable {
+    min-width: 700px;     /* like your rounds (works great on iPhone) */
+    font-size: 0.72rem;   /* smaller than before */
   }
 
   .overallTable td {
-    padding: 8px 8px;
-    font-size: 12px;
+    padding: 6px 7px;
   }
+}
 
-  .overallTable td:first-child,
-  .overallTable td:nth-child(3),
-  .overallTotalCell {
-    font-weight: 800;
+/* Even smaller phones */
+@media (max-width: 420px) {
+  .overallTable {
+    min-width: 640px;
+    font-size: 0.68rem;
   }
 }

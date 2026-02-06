@@ -53,14 +53,10 @@ function tableHasData(rows) {
   const cleaned = trimEmptyBottom(trimRight(rows || []));
   if (!cleaned.length) return false;
 
-  // We don't know where the header is, but if there is any non-empty row
-  // beyond the first couple of rows, it's real data.
   const body = cleaned.slice(1);
   return body.some((r) => (r || []).some((c) => String(c ?? "").trim() !== ""));
 }
 
-// In your sheet slices, row 0 is often a title row ("FINAL STANDINGS"),
-// and row 1 is the real header row ("Round 1 ... Total").
 // We'll scan the first 3 rows and pick the first row that contains "Round" or "Total".
 function findHeaderRowIndex(cleanedRows) {
   const scan = Math.min(3, cleanedRows?.length || 0);
@@ -95,39 +91,42 @@ function Table({ title, rows }) {
     <div className="overallCard">
       {title ? <div className="overallCardTitle">{title}</div> : null}
 
+      {/* OUTER: clips rounded corners / prevents bleed */}
       <div className="overallTableWrap">
-        <table className="overallTable">
-          <tbody>
-            {cleaned.map((r, i) => (
-              <tr
-                key={i}
-                className={i === headerRowIndex ? "overallHeaderRow" : ""}
-              >
-                {(r || []).map((c, j) => {
-                  const isTotal = totalColIndex != null && j === totalColIndex;
+        {/* INNER: handles horizontal scroll */}
+        <div className="overallTableScroll">
+          <table className="overallTable">
+            <tbody>
+              {cleaned.map((r, i) => (
+                <tr
+                  key={i}
+                  className={i === headerRowIndex ? "overallHeaderRow" : ""}
+                >
+                  {(r || []).map((c, j) => {
+                    const isTotal = totalColIndex != null && j === totalColIndex;
 
-                  // zebra only on data rows (rows after header)
-                  const isDataRow = i > headerRowIndex;
-                  const zebra =
-                    isDataRow && (i - headerRowIndex) % 2 === 0
-                      ? "overallAltRowCell"
-                      : "";
+                    const isDataRow = i > headerRowIndex;
+                    const zebra =
+                      isDataRow && (i - headerRowIndex) % 2 === 0
+                        ? "overallAltRowCell"
+                        : "";
 
-                  return (
-                    <td
-                      key={j}
-                      className={[isTotal ? "overallTotalCell" : "", zebra]
-                        .filter(Boolean)
-                        .join(" ")}
-                    >
-                      {c}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    return (
+                      <td
+                        key={j}
+                        className={[isTotal ? "overallTotalCell" : "", zebra]
+                          .filter(Boolean)
+                          .join(" ")}
+                      >
+                        {c}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
