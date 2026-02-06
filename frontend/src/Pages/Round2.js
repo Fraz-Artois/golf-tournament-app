@@ -1,48 +1,118 @@
-// ✅ all imports must be at the top
 import React, { useEffect, useState } from "react";
 import "./Round1.css";
-const API_BASE = "https://race-2-phuket.onrender.com";
+import { fetchSheetAsRowsByName } from "../utils/googleSheets";
+
+// --- helpers ---
+const colIndex = (letter) => letter.toUpperCase().charCodeAt(0) - 65; // A=0
+const rowIndex = (num) => num - 1; // Sheet row 1 => index 0
+
+function sliceRange(rows, startCell, endCell) {
+  const r1 = rowIndex(startCell.row);
+  const r2 = rowIndex(endCell.row);
+  const c1 = colIndex(startCell.col);
+  const c2 = colIndex(endCell.col);
+
+  const out = [];
+  for (let r = r1; r <= r2; r++) {
+    const row = rows[r] || [];
+    out.push(row.slice(c1, c2 + 1));
+  }
+  return out;
+}
+
+function trimRight(tableRows) {
+  const isBlank = (v) => !String(v ?? "").trim();
+
+  let last = -1;
+  tableRows.forEach((r) => {
+    for (let c = r.length - 1; c >= 0; c--) {
+      if (!isBlank(r[c])) {
+        if (c > last) last = c;
+        break;
+      }
+    }
+  });
+
+  if (last < 0) return tableRows;
+  return tableRows.map((r) => r.slice(0, last + 1));
+}
+
+const classFromMask = (raw) => {
+  const code = String(raw ?? "").trim();
+  if (code === "3") return "mp-gold";
+  if (code === "2") return "mp-silver";
+  if (code === "1") return "mp-bronze";
+  return "";
+};
+
+// detect first player row in matchplay table (usually where BELLIS starts)
+const isLikelyPlayerName = (val) => {
+  const s = String(val ?? "").trim();
+  if (!s) return false;
+  const lower = s.toLowerCase();
+  if (lower === "players" || lower === "player" || lower === "par" || lower === "s.i" || lower === "si" || lower === "hole")
+    return false;
+  return /[a-z]/i.test(s);
+};
 
 export default function Round2() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [standings, setStandings] = useState([]);
-  const [strokes, setStrokes] = useState([]);
-  const [points, setPoints] = useState([]);
-  const [matchplay, setMatchplay] = useState([]);
-  const [matchplayColors, setMatchplayColors] = useState([]);
-  const [overall, setOverall] = useState([]);
+  const [tables, setTables] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/round2`)
+    (async () => {
+      try {
+        const rows = await fetchSheetAsRowsByName("Round2", "A1:W130");
 
-      .then((r) => r.json())
-      .then((json) => {
-        if (json.status === "success") {
-          setStandings(json.standings || []);
-          setStrokes(json.strokes || []);
-          setPoints(json.points || []);
-          setMatchplay(json.matchplay || []);
-          setMatchplayColors(json.matchplay_colors || []);
-          setOverall(json.overall || []);
-        } else {
-          setError(json.message || "Failed to load data");
-        }
-      })
-      .catch((e) => setError(e.message || "Network error"))
-      .finally(() => setLoading(false));
+        const results = trimRight(
+          sliceRange(rows, { col: "A", row: 6 }, { col: "D", row: 13 })
+        );
+
+        const strokes = trimRight(
+          sliceRange(rows, { col: "A", row: 22 }, { col: "W", row: 32 })
+        );
+
+        const netScores = trimRight(
+          sliceRange(rows, { col: "A", row: 38 }, { col: "W", row: 48 })
+        );
+
+        const matchplayNames = trimRight(
+          sliceRange(rows, { col: "A", row: 54 }, { col: "V", row: 64 })
+        );
+
+        // ✅ mask is ONLY the player rows map
+        const matchplayMask = trimRight(
+          sliceRange(rows, { col: "A", row: 111 }, { col: "V", row: 117 })
+        );
+
+        setTables([
+          { type: "normal", title: "Round 2 - Results", rows: results },
+          { type: "normal", title: "Round 2 - Strokes", rows: strokes },
+          { type: "normal", title: "Round 2 - Net Scores", rows: netScores },
+          {
+            type: "matchplay",
+            title: "Round 2 - Matchplay",
+            rows: matchplayNames,
+            mask: matchplayMask,
+          },
+        ]);
+      } catch (e) {
+        setError(e.message || "Failed to load data");
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   if (loading) return <div className="loading">Loading Round 2…</div>;
   if (error) return <div className="error">Error: {error}</div>;
 
-  // === TABLE RENDERER WITH FIXED ARROW DETECTION ===
-  const renderTableFromRows = (rows) => {
+  const renderNormalTable = (rows) => {
     if (!rows || !rows.length) return <div className="empty">No data</div>;
 
-    // TRUE Excel arrow characters found in leaderboard.xlsx:
-    const upArrow = "⬆";   // U+2B06 BLACK UP ARROW
-    const downArrow = "⬇"; // U+2B07 BLACK DOWN ARROW
+    const upArrow = "⬆";
+    const downArrow = "⬇";
 
     return (
       <div className="table-block">
@@ -51,28 +121,16 @@ export default function Round2() {
             {rows.map((r, i) => (
               <tr key={i}>
                 {r.map((cell, j) => {
-                  const value = String(cell).trim();
-
+                  const value = String(cell ?? "").trim();
                   let cellClass = "";
 
-                  if (i === 0) {
-                    cellClass = "header-cell";
-                  }
-                  else if (value.includes(upArrow) && !value.includes(downArrow)) {
-                    // ONLY up arrow present
+                  if (i === 0) cellClass = "header-cell";
+                  else if (value.includes(upArrow) && !value.includes(downArrow))
                     cellClass = "arrow-up";
-                  }
-                  else if (value.includes(downArrow) && !value.includes(upArrow)) {
-                    // ONLY down arrow present
+                  else if (value.includes(downArrow) && !value.includes(upArrow))
                     cellClass = "arrow-down";
-                  }
-                  else if (value.includes(upArrow) && value.includes(downArrow)) {
-                    // Excel encodes "no change" as ⬆⬇ or ⬇⬆
+                  else if (value === "-" || value === "–")
                     cellClass = "arrow-same";
-                  }
-                  else if (value.includes("-") || value.includes("–")) {
-                    cellClass = "arrow-same";
-                  }
 
                   return (
                     <td key={j} className={cellClass}>
@@ -88,32 +146,42 @@ export default function Round2() {
     );
   };
 
-  // === SPECIAL MATCHPLAY RENDERER ===
-  const renderMatchplayTable = () => {
-    if (!matchplay || !matchplay.length)
-      return <div className="empty">No data</div>;
+  const renderMatchplayTable = (nameRows, maskRows) => {
+    if (!nameRows || !nameRows.length) return <div className="empty">No data</div>;
+
+    // ✅ find where the actual players begin (so mask row 0 maps to BELLIS row)
+    const playerStart = nameRows.findIndex((r, i) => i > 0 && isLikelyPlayerName(r?.[0]));
+    // fallback if not found
+    const start = playerStart >= 0 ? playerStart : 1;
 
     return (
-      <div className="table-block matchplay-table">
+      <div className="table-block">
         <table>
           <tbody>
-            {matchplay.map((row, i) => (
+            {nameRows.map((r, i) => (
               <tr key={i}>
-                {row.map((cell, j) => {
-                  const colorTag = matchplayColors?.[i]?.[j] ?? "";
+                {r.map((cell, j) => {
+                  const text = String(cell ?? "").trim();
 
-                  let bg = "";
-                  if (colorTag === "gold") bg = "rgba(255, 215, 0, 0.35)";
-                  if (colorTag === "silver") bg = "rgba(192, 192, 192, 0.35)";
-                  if (colorTag === "bronze") bg = "rgba(205, 127, 50, 0.35)";
+                  // header row stays gold band + never overlay medals on it
+                  if (i === 0) {
+                    return (
+                      <td key={j} className="header-cell">
+                        {text}
+                      </td>
+                    );
+                  }
+
+                  // ✅ only overlay mask starting from first player row
+                  const mi = i - start;
+                  const cls =
+                    mi >= 0 && mi < (maskRows?.length || 0)
+                      ? classFromMask(maskRows?.[mi]?.[j])
+                      : "";
 
                   return (
-                    <td
-                      key={j}
-                      className={i === 0 ? "header-cell" : ""}
-                      style={{ backgroundColor: bg }}
-                    >
-                      {cell}
+                    <td key={j} className={cls}>
+                      {text}
                     </td>
                   );
                 })}
@@ -129,32 +197,15 @@ export default function Round2() {
     <div className="round-container">
       <h1 className="round-title">🏌️ Round 2</h1>
 
-      <section className="section">
-        <h2>Tournament Standings</h2>
-        {renderTableFromRows(standings)}
-      </section>
+      {tables.map((t, idx) => (
+        <section className="section" key={idx}>
+          <h2>{t.title}</h2>
 
-      <section className="section">
-        <h2>Round 2 — Strokes</h2>
-        {renderTableFromRows(strokes)}
-      </section>
-
-      <section className="section">
-        <h2>Round 2 — Net Scores</h2>
-        {renderTableFromRows(points)}
-      </section>
-
-      <section className="section">
-        <h2>Round 2 — Matchplay Order</h2>
-        {renderMatchplayTable()}
-      </section>
-
-      <section className="section">
-        <h2>After 2 Rounds — Overall Standings</h2>
-        <div className="overall-table">
-          {renderTableFromRows(overall)}
-        </div>
-      </section>
+          {t.type === "matchplay"
+            ? renderMatchplayTable(t.rows, t.mask)
+            : renderNormalTable(t.rows)}
+        </section>
+      ))}
     </div>
   );
 }

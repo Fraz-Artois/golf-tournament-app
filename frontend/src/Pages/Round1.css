@@ -1,7 +1,7 @@
-/* === PAGE WRAPPER === */
+/* ================= PAGE ================= */
 .round-container {
   background:
-    linear-gradient(rgba(15, 25, 45, 0.45), rgba(70, 85, 120, 0.35)),
+    linear-gradient(rgba(15,25,45,0.45), rgba(70,85,120,0.35)),
     url("../assets/round-bg.jpg") center/70% no-repeat;
   background-attachment: fixed;
   color: #f5f7fb;
@@ -10,365 +10,160 @@
   min-height: 100vh;
 }
 
-/* === PAGE TITLE BOX === */
+/* ================= ROUND TITLE (TOP BUBBLE) ================= */
 .round-title {
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  margin: 0 auto 40px;
   padding: 12px 28px;
+  border-radius: 999px;
   border: 2px solid #f7d87c;
-  border-radius: 50px;
-  background: rgba(25, 40, 70, 0.55);
+  background: rgba(25,40,70,0.55);
   font-size: 2rem;
   font-weight: 600;
   color: #f7d87c;
-  text-align: center;
-  margin: 0 auto 40px auto;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 8px rgba(0,0,0,0.6);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.45),
+    inset 0 0 14px rgba(247,216,124,0.12);
 }
 
-.round-container .round-title {
-  display: block;
-  width: fit-content;
-}
-
-/* === SECTION CONTAINERS === */
+/* ================= SECTIONS ================= */
 .section {
-  margin-bottom: 55px;
-  padding: 12px 18px;
-  border-left: 3px solid #f7d87c33;
+  margin-bottom: 48px;
 }
 
-/* === SECTION TITLES === */
+/* ================= TABLE TITLE BUBBLES ================= */
 .section h2 {
   display: inline-block;
-  background: rgba(28, 45, 75, 0.6);
-  border: 1.5px solid rgba(247, 216, 124, 0.6);
-  border-radius: 10px;
-  padding: 8px 20px;
+  padding: 8px 22px;
+  margin-bottom: 22px;
+
+  background: rgba(25, 40, 70, 0.65);
+  border: 2px solid rgba(247, 216, 124, 0.7);
+  border-radius: 999px;
+
   color: #f7d87c;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 20px;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.4px;
+
+  text-shadow: 0 0 6px rgba(0,0,0,0.6);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.45),
+    inset 0 0 12px rgba(247,216,124,0.08);
 }
 
-.section h2::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #f7d87c, #a5c4f3);
-  border-radius: 2px;
-  margin-top: 8px;
+/* Center table title bubbles on mobile */
+@media (max-width: 900px) {
+  .section h2 {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 18px;
+    font-size: 1rem;
+  }
 }
 
-/* === TABLE CONTAINER === */
+/* ================= TABLE CARDS ================= */
 .table-block {
-  background-color: rgba(50, 65, 100, 0.95);
+  background: rgba(8,27,55,0.92);            /* dark navy */
+  border: 2px solid rgba(165,196,243,0.35);  /* blue frame */
   border-radius: 14px;
-  overflow-x: auto;
-  padding: 18px;
-  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  position: relative;
-  transition: box-shadow 0.2s ease;
+  padding: 16px;
+  overflow: auto;
+  box-shadow: 0 3px 20px rgba(0,0,0,0.4);
 }
 
-.table-block:hover {
-  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
-}
-
-.table-block::before {
-  content: "";
-  display: block;
-  height: 3px;
-  background: linear-gradient(90deg, #f7d87c, #a5c4f3);
-  border-radius: 2px 2px 0 0;
-  margin-bottom: 10px;
-}
-
-/* === TOP TABLE (Tournament Standings) === */
-/* === TOP TABLE (Tournament Standings) — SKY SPORTS CARD === */
+/* ================= RESULTS (TOP TABLE CARD) ================= */
 .section:first-of-type .table-block {
   background: linear-gradient(135deg, #1f2d45, #0e1625);
   border: 2px solid #f7d87c;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.5);
 }
 
-/* gold accent bar */
-.section:first-of-type .table-block::before {
-  content: "";
-  display: block;
-  height: 4px;
-  background: linear-gradient(90deg, #f7d87c, #b7cfff);
-  border-radius: 2px 2px 0 0;
-  margin-bottom: 12px;
-}
-
-/* text colour */
-.section:first-of-type table {
-  color: #ffffff;
-}
-
-/* header matches overall table header */
-.section:first-of-type .header-cell {
-  background: rgba(247, 216, 124, 0.22);
-  color: #f7d87c !important;
-  border-bottom: 2px solid rgba(247, 216, 124, 0.35);
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-/* alternating rows */
-.section:first-of-type tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-/* total column stays bold white */
-.section:first-of-type td:last-child {
-  font-weight: 700;
-  color: #ffffff;
-}
-
-
-/* === TABLE STRUCTURE === */
+/* ================= TABLE BASE ================= */
 table {
-  width: 100%;
   border-collapse: collapse;
-  text-align: center;
-  font-size: 0.92rem;
+  width: 100%;
   color: #f1f4f9;
-  border-spacing: 0;
+  font-size: 0.9rem;
 }
 
-/* === CELLS === */
 td {
-  padding: 9px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-td:last-child {
-  border-right: none;
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-
+/* ================= HEADER CELLS (GOLD BAND) ================= */
 .header-cell {
-  background-color: rgba(247, 216, 124, 0.18);
-  font-weight: 700;
+  background: rgba(247,216,124,0.18);
   color: #f7d87c;
-  text-transform: uppercase;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-  letter-spacing: 0.5px;
-}
-
-tr:nth-child(even) td {
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-/* === HOVER === */
-tr:hover td {
-  background-color: rgba(255, 255, 255, 0.08);
-  transition: 0.2s ease;
-}
-
-/* === MATCHPLAY === */
-.matchplay-table td:last-child {
-  font-weight: normal;
-  color: inherit;
-}
-
-/* ============================================================
-   === OVERALL TABLE — SKY SPORTS CARD STYLE ==================
-   ============================================================ */
-.overall-table .table-block {
-  background: linear-gradient(135deg, #1f2d45, #0e1625);
-  border: 2px solid #f7d87c;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-}
-
-.overall-table .table-block::before {
-  height: 4px;
-  background: linear-gradient(90deg, #f7d87c, #b7cfff);
-  margin-bottom: 12px;
-}
-
-.overall-table .header-cell {
-  background: rgba(247, 216, 124, 0.22);
-  color: #f7d87c !important;
-  border-bottom: 2px solid rgba(247, 216, 124, 0.35);
-}
-
-/* === ARROW COLOURS ========================================== */
-.overall-table td.arrow-up {
-  color: #00994d !important; /* darker green */
-  font-weight: 900 !important;
-}
-
-.overall-table td.arrow-down {
-  color: #ff5f5f !important; /* red stays the same */
-  font-weight: 900 !important;
-}
-
-.overall-table td.arrow-same {
-  color: #ffffff !important;
-  opacity: 0.8 !important;
-}
-
-/* ============================================================
-   === MEDAL ROW HIGHLIGHT COLOURS (FINAL TABLE) ===============
-   ============================================================ */
-
-.medal-gold td {
-  background-color: rgba(255, 215, 0, 0.18) !important;
-}
-
-.medal-silver td {
-  background-color: rgba(192, 192, 192, 0.18) !important;
-}
-
-.medal-bronze td {
-  background-color: rgba(205, 127, 50, 0.18) !important;
-}
-
-/* Crown spacing */
-.crown {
-  margin-left: 6px;
-  font-size: 1.1rem;
-}
-/* ============================================================
-   === FINAL TABLE — PREMIUM GOLD EDITION ======================
-   ============================================================ */
-
-/* ============================================================
-   FINAL OVERALL TABLE — CLEAN WHITE STYLE
-   ============================================================ */
-
-.final-overall-table .table-block {
-  background: #ffffff !important;        /* FULL WHITE BACKGROUND */
-  border: 2px solid #a5c4f3 !important;   /* SKY BLUE BORDER */
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-}
-
-/* Remove the dark accent bar for this table */
-.final-overall-table .table-block::before {
-  content: none !important;
-}
-
-/* Header row */
-.final-overall-table .header-cell {
-  background: #e8f1ff !important;         /* LIGHT SKY BLUE HEADER */
-  color: #0a1428 !important;              /* Dark navy text */
   font-weight: 700;
-  border-bottom: 2px solid #a5c4f3 !important;
+  text-transform: uppercase;
 }
 
-/* Sky blue grid lines */
-.final-overall-table td {
-  border-bottom: 1px solid rgba(80, 140, 200, 0.25) !important;
-  border-right: 1px solid rgba(80, 140, 200, 0.20) !important;
-  color: #0a1428 !important;             /* Dark navy text for clean contrast */
+/* Alternating rows */
+tr:nth-child(even) td {
+  background: rgba(255,255,255,0.04);
 }
 
-.final-overall-table tr:last-child td {
-  border-bottom: none !important;
+/* ================= RESULTS TABLE SMALLER ================= */
+.table--results td {
+  font-size: 0.72rem;
+  padding: 5px 7px;
 }
 
-/* Medal highlights POP on white */
-.medal-gold td {
-  background: rgba(255, 215, 0, 0.25) !important;
+/* ================= SCROLL SUPPORT (kept for other rounds if needed) ================= */
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
 }
 
-.medal-silver td {
-  background: rgba(192, 192, 192, 0.25) !important;
+.tableScroll .table-block {
+  display: inline-block;
+  width: max-content;
 }
 
-.medal-bronze td {
-  background: rgba(205, 127, 50, 0.25) !important;
+.tableScroll table {
+  width: max-content;
+  min-width: 520px;
 }
 
-/* Arrows */
-.final-overall-table .arrow-up {
-  color: #0d9e4f !important;   /* darker green */
-  font-weight: 900;
-}
-
-.final-overall-table .arrow-down {
-  color: #cc2e3d !important;   /* deeper red */
-  font-weight: 900;
-}
-
-.final-overall-table .arrow-same {
-  color: #444 !important;      /* softer neutral */
-}
-
-/* Crown next to champion */
-.crown {
-  margin-left: 6px;
-  color: #d4af37;              /* rich gold */
-}
-/* ============================================================
-   === MOBILE RESPONSIVE TWEAKS ================================
-   ============================================================ */
-
+/* ================= MOBILE ================= */
 @media (max-width: 900px) {
   .round-container {
     padding: 20px 12px;
-    background-attachment: scroll; /* fixed backgrounds are janky on mobile */
   }
 
-  .round-title {
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    margin-bottom: 24px;
-  }
-
-  .section {
-    margin-bottom: 32px;
-    padding: 8px 10px;
-    border-left: none; /* gives you more horizontal space */
-  }
-
-  .section h2 {
-    font-size: 1rem;
-    text-align: center;
-    display: block;
-  }
-
-  .table-block {
-    padding: 10px;
-    border-radius: 10px;
-  }
-
-  /* KEY: table scrolls horizontally instead of squishing */
-  .table-block table {
-    font-size: 0.75rem;
+  /* Only big tables get forced width */
+  .section:not(:first-of-type) table {
     min-width: 700px;
   }
 
-  .table-block td {
-    padding: 4px 6px;
+  .table--results td {
+    font-size: 0.68rem;
   }
 }
+/* ================= MATCHPLAY COLOURS =================
+   3 = WINNER (GOLD)
+   2 = 2nd (SILVER)
+   1 = 3rd (BRONZE)
+======================================================= */
 
-@media (max-width: 600px) {
-  .round-title {
-    font-size: 1.3rem;
-  }
+td.mp-gold {
+  background: rgba(255, 215, 0, 0.28) !important;
+  color: #bfc1c5 !important;
+  font-weight: 800 !important;
+}
 
-  .table-block table {
-    min-width: 650px;
-  }
+td.mp-silver {
+  background: rgba(192, 192, 192, 0.22) !important;
+  color: #bfc1c5 !important;
+  font-weight: 800 !important;
+}
+
+td.mp-bronze {
+  background: rgba(205, 127, 50, 0.22) !important;
+  color: #bfc1c5 !important;
+  font-weight: 800 !important;
 }

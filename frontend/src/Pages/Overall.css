@@ -1,0 +1,204 @@
+/* ================= PAGE BACKGROUND ================= */
+
+.overallPage {
+  min-height: 100vh;
+  padding: 28px 18px 60px;
+
+  background-image:
+    linear-gradient(
+      rgba(6, 10, 20, 0.92),
+      rgba(6, 10, 20, 0.92)
+    ),
+    url("../assets/round-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  color: #ffffff;
+}
+
+/* ================= HEADER ================= */
+
+.overallHero {
+  max-width: 1200px;
+  margin: 0 auto 18px;
+  padding: 16px 18px 12px;
+
+  border-radius: 18px;
+  background: rgba(10, 18, 35, 0.80);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+}
+
+.overallTitle {
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.overallSubtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* ================= STATUS / ERROR ================= */
+
+.overallStatus {
+  max-width: 1200px;
+  margin: 10px auto;
+  opacity: 0.85;
+}
+
+.overallError {
+  max-width: 1200px;
+  margin: 12px auto;
+  padding: 12px 14px;
+
+  border-radius: 12px;
+  background: rgba(255, 0, 0, 0.14);
+  border: 1px solid rgba(255, 0, 0, 0.35);
+}
+
+/* ================= LAYOUT ================= */
+
+.overallGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  gap: 18px;
+}
+
+/* ================= TABLE CARD ================= */
+
+.overallCard {
+  border-radius: 18px;
+  padding: 14px 14px 10px;
+
+  background: rgba(10, 18, 35, 0.78);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.overallCardTitle {
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin: 2px 4px 12px;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+/* ================= TABLE ================= */
+
+.overallTableWrap {
+  width: 100%;
+  overflow-x: auto;                /* ✅ horizontal scroll on mobile */
+  -webkit-overflow-scrolling: touch;
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.overallTable {
+  min-width: 720px;                /* ✅ prevents squishing */
+  width: max-content;              /* ✅ grows naturally */
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.overallTable td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* Header row */
+.overallHeaderRow td {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Very subtle zebra */
+.overallAltRowCell {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ================= LEFT ANCHOR ================= */
+
+.overallTable td:first-child {
+  color: #ffffff;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.overallTable td:nth-child(2) {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 700;
+}
+
+.overallTable td:nth-child(3) {
+  color: #ffffff;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ================= MIDDLE DATA ================= */
+
+.overallTable td:nth-child(n+4):not(.overallTotalCell) {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ================= RIGHT ANCHOR (TOTAL) ================= */
+
+.overallTotalCell {
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.overallHeaderRow .overallTotalCell {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 900;
+}
+
+/* ================= MOBILE TUNING ================= */
+
+@media (max-width: 768px) {
+  .overallTitle {
+    font-size: 24px;
+  }
+
+  .overallCardTitle {
+    font-size: 13px;
+  }
+
+  .overallTable td {
+    padding: 8px 8px;
+    font-size: 12px;
+  }
+
+  .overallTable td:first-child,
+  .overallTable td:nth-child(3),
+  .overallTotalCell {
+    font-weight: 800;
+  }
+}
