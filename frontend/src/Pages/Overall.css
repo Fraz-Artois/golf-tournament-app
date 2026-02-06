@@ -44,18 +44,18 @@
   }
 
   .overall-container .round-title {
-    font-size: 1.35rem;
+    font-size: 1.15rem;
   }
 
   .overall-container .section h2 {
-    font-size: 0.85rem;
+    font-size: 0.70rem;
   }
 
   /* Force horizontal scroll + smaller font */
   .overall-container .table-block table {
     width: max-content;
     min-width: 700px;
-    font-size: 0.7rem;         /* ⬅ key mobile reduction */
+    font-size: 0.5rem;         /* ⬅ key mobile reduction */
   }
 
   .overall-container td {
