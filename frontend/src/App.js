@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
+/* ✅ IMPORTANT: makes Home page use the same background/styles as rounds */
+import "./Pages/Round1.css";
+
 import Round1 from "./Pages/Round1";
 import Round2 from "./Pages/Round2";
 import Round3 from "./Pages/Round3";
@@ -51,14 +54,46 @@ export default function App() {
               flexWrap: "nowrap",
             }}
           >
-            <li><Link to="/" style={{ color: "white", textDecoration: "none" }}>Home</Link></li>
-            <li><Link to="/round1" style={{ color: "white", textDecoration: "none" }}>Round 1</Link></li>
-            <li><Link to="/round2" style={{ color: "white", textDecoration: "none" }}>Round 2</Link></li>
-            <li><Link to="/round3" style={{ color: "white", textDecoration: "none" }}>Round 3</Link></li>
-            <li><Link to="/round4" style={{ color: "white", textDecoration: "none" }}>Round 4</Link></li>
-            <li><Link to="/round5" style={{ color: "white", textDecoration: "none" }}>Round 5</Link></li>
-            <li><Link to="/round6" style={{ color: "white", textDecoration: "none" }}>Round 6</Link></li>
-            <li><Link to="/overall" style={{ color: "white", textDecoration: "none" }}>Overall</Link></li>
+            <li>
+              <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/round1" style={{ color: "white", textDecoration: "none" }}>
+                Round 1
+              </Link>
+            </li>
+            <li>
+              <Link to="/round2" style={{ color: "white", textDecoration: "none" }}>
+                Round 2
+              </Link>
+            </li>
+            <li>
+              <Link to="/round3" style={{ color: "white", textDecoration: "none" }}>
+                Round 3
+              </Link>
+            </li>
+            <li>
+              <Link to="/round4" style={{ color: "white", textDecoration: "none" }}>
+                Round 4
+              </Link>
+            </li>
+            <li>
+              <Link to="/round5" style={{ color: "white", textDecoration: "none" }}>
+                Round 5
+              </Link>
+            </li>
+            <li>
+              <Link to="/round6" style={{ color: "white", textDecoration: "none" }}>
+                Round 6
+              </Link>
+            </li>
+            <li>
+              <Link to="/overall" style={{ color: "white", textDecoration: "none" }}>
+                Overall
+              </Link>
+            </li>
           </ul>
         </nav>
 
