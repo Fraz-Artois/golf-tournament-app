@@ -2,29 +2,71 @@
 /* Overall uses Round1.css base styles */
 @import "./Round1.css";
 
-/* Small spacing tweak */
+/* ================= OVERALL ONLY TWEAKS ================= */
+
 .overall-container {
-  padding-top: 30px;
+  padding-top: 24px;
 }
 
-/* ===== KEY FIX: allow horizontal scrolling on Overall tables ===== */
+/* Make Overall titles slightly smaller */
+.overall-container .round-title {
+  font-size: 1.6rem;
+  padding: 10px 22px;
+}
 
-/* Desktop: behave normally */
+/* Section title bubbles smaller */
+.overall-container .section h2 {
+  font-size: 0.95rem;
+  padding: 6px 18px;
+}
+
+/* ===== TABLE FONT + SPACING (OVERALL ONLY) ===== */
+
+/* Desktop / default */
 .overall-container .table-block table {
   width: 100%;
+  font-size: 0.82rem;          /* ⬅ smaller text */
 }
 
-/* Mobile: force table wider than card so .table-block can scroll */
+.overall-container td {
+  padding: 6px 8px;            /* ⬅ tighter cells */
+}
+
+/* Header row */
+.overall-container .header-cell {
+  font-size: 0.8rem;
+}
+
+/* ===== MOBILE ===== */
 @media (max-width: 900px) {
+  .overall-container {
+    padding: 18px 10px;
+  }
+
+  .overall-container .round-title {
+    font-size: 1.35rem;
+  }
+
+  .overall-container .section h2 {
+    font-size: 0.85rem;
+  }
+
+  /* Force horizontal scroll + smaller font */
   .overall-container .table-block table {
-    width: max-content;   /* allows natural width */
-    min-width: 700px;     /* forces horizontal scroll (same as rounds) */
+    width: max-content;
+    min-width: 700px;
+    font-size: 0.7rem;         /* ⬅ key mobile reduction */
+  }
+
+  .overall-container td {
+    padding: 5px 6px;
   }
 }
 
-/* Smaller phones */
+/* Very small phones */
 @media (max-width: 420px) {
   .overall-container .table-block table {
     min-width: 640px;
+    font-size: 0.66rem;
   }
 }
