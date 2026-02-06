@@ -1,8 +1,30 @@
-/* Overall uses EXACT same layout rules as round pages */
-
+/* frontend/src/Pages/Overall.css */
+/* Overall uses Round1.css base styles */
 @import "./Round1.css";
 
-/* Only tiny tweaks unique to Overall (safe) */
+/* Small spacing tweak */
 .overall-container {
   padding-top: 30px;
+}
+
+/* ===== KEY FIX: allow horizontal scrolling on Overall tables ===== */
+
+/* Desktop: behave normally */
+.overall-container .table-block table {
+  width: 100%;
+}
+
+/* Mobile: force table wider than card so .table-block can scroll */
+@media (max-width: 900px) {
+  .overall-container .table-block table {
+    width: max-content;   /* allows natural width */
+    min-width: 700px;     /* forces horizontal scroll (same as rounds) */
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 420px) {
+  .overall-container .table-block table {
+    min-width: 640px;
+  }
 }
