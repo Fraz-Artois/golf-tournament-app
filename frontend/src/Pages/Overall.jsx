@@ -91,42 +91,39 @@ function Table({ title, rows }) {
     <div className="overallCard">
       {title ? <div className="overallCardTitle">{title}</div> : null}
 
-      {/* OUTER: clips rounded corners / prevents bleed */}
+      {/* ✅ Round-style: card handles scroll via overflow:auto */}
       <div className="overallTableWrap">
-        {/* INNER: handles horizontal scroll */}
-        <div className="overallTableScroll">
-          <table className="overallTable">
-            <tbody>
-              {cleaned.map((r, i) => (
-                <tr
-                  key={i}
-                  className={i === headerRowIndex ? "overallHeaderRow" : ""}
-                >
-                  {(r || []).map((c, j) => {
-                    const isTotal = totalColIndex != null && j === totalColIndex;
+        <table className="overallTable">
+          <tbody>
+            {cleaned.map((r, i) => (
+              <tr
+                key={i}
+                className={i === headerRowIndex ? "overallHeaderRow" : ""}
+              >
+                {(r || []).map((c, j) => {
+                  const isTotal = totalColIndex != null && j === totalColIndex;
 
-                    const isDataRow = i > headerRowIndex;
-                    const zebra =
-                      isDataRow && (i - headerRowIndex) % 2 === 0
-                        ? "overallAltRowCell"
-                        : "";
+                  const isDataRow = i > headerRowIndex;
+                  const zebra =
+                    isDataRow && (i - headerRowIndex) % 2 === 0
+                      ? "overallAltRowCell"
+                      : "";
 
-                    return (
-                      <td
-                        key={j}
-                        className={[isTotal ? "overallTotalCell" : "", zebra]
-                          .filter(Boolean)
-                          .join(" ")}
-                      >
-                        {c}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  return (
+                    <td
+                      key={j}
+                      className={[isTotal ? "overallTotalCell" : "", zebra]
+                        .filter(Boolean)
+                        .join(" ")}
+                    >
+                      {c}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
@@ -201,7 +198,7 @@ export default function Overall() {
         {TABLES
           .filter((t) => t.round <= currentRound)
           .slice()
-          .sort((a, b) => b.round - a.round) // latest at top
+          .sort((a, b) => b.round - a.round)
           .map((t) => (
             <Table
               key={t.round}

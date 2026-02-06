@@ -5,17 +5,15 @@
 .overallHero,
 .overallGrid,
 .overallCard,
-.overallTableWrap,
-.overallTableScroll {
+.overallTableWrap {
   max-width: 100%;
 }
 
-/* If anything tries to exceed, do NOT let Overall create a wider page */
 .overallPage {
   overflow-x: hidden;
 }
 
-/* ===== Page background (match the “rounds” feel so iOS never shows white) ===== */
+/* ===== Page background (match rounds) ===== */
 .overallPage {
   background:
     linear-gradient(rgba(15,25,45,0.45), rgba(70,85,120,0.35)),
@@ -84,7 +82,7 @@
   gap: 18px;
 }
 
-/* ===== Card titles (same “bubble title” vibe as rounds) ===== */
+/* ===== Titles ===== */
 .overallCardTitle {
   display: inline-block;
   padding: 8px 22px;
@@ -105,7 +103,6 @@
     inset 0 0 12px rgba(247,216,124,0.08);
 }
 
-/* Center titles on smaller screens */
 @media (max-width: 900px) {
   .overallCardTitle {
     display: block;
@@ -115,34 +112,25 @@
   }
 }
 
-/* ===== Card container ===== */
+/* ===== Card ===== */
 .overallCard {
   width: 100%;
 }
 
-/* ===== Table card (THIS is the key pattern: overflow:auto like Round pages) ===== */
+/* ===== Table card (Round-style scroll container) ===== */
 .overallTableWrap {
   background: rgba(8,27,55,0.92);
   border: 2px solid rgba(165,196,243,0.35);
   border-radius: 14px;
   padding: 16px;
-  overflow: auto; /* ✅ horizontal scroll happens here */
+  overflow: auto; /* ✅ scroll happens here */
   box-shadow: 0 3px 20px rgba(0,0,0,0.4);
 }
 
-/* If you keep the 2-layer structure in JSX, this makes sure the inner div
-   doesn't accidentally expand layout */
-.overallTableScroll {
-  display: block;
-  width: max-content; /* so the table can be wider than the card */
-  max-width: none;
-}
-
-/* ===== Table base ===== */
+/* ===== Table base (Round-style) ===== */
 .overallTable {
   border-collapse: collapse;
-  width: max-content; /* ✅ lets wide tables exist */
-  min-width: 100%;    /* ✅ but fills the card when small */
+  width: 100%;
   color: #f1f4f9;
   font-size: 0.9rem;
 }
@@ -150,10 +138,10 @@
 .overallTable td {
   padding: 8px 10px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
-  white-space: nowrap; /* ✅ prevents ugly wrapping */
+  white-space: nowrap;
 }
 
-/* Header row style */
+/* Header row */
 .overallHeaderRow td {
   background: rgba(247,216,124,0.18);
   color: #f7d87c;
@@ -161,18 +149,18 @@
   text-transform: uppercase;
 }
 
-/* Zebra */
+/* Zebra applied per-cell by your JSX */
 .overallAltRowCell {
   background: rgba(255,255,255,0.04);
 }
 
-/* Total column emphasis */
+/* Total column */
 .overallTotalCell {
   font-weight: 800;
   background: rgba(255,255,255,0.06);
 }
 
-/* ===== MOBILE ===== */
+/* ===== MOBILE: force width so the card scrolls ===== */
 @media (max-width: 900px) {
   .overallPage {
     padding: 20px 12px;
@@ -186,10 +174,9 @@
     font-size: 0.9rem;
   }
 
-  /* ✅ Force “wide table” behavior so card scroll is guaranteed */
   .overallTable {
-    min-width: 700px;     /* like your rounds (works great on iPhone) */
-    font-size: 0.72rem;   /* smaller than before */
+    min-width: 700px;   /* ✅ forces horizontal scroll inside card */
+    font-size: 0.72rem; /* ✅ smaller */
   }
 
   .overallTable td {
@@ -197,7 +184,6 @@
   }
 }
 
-/* Even smaller phones */
 @media (max-width: 420px) {
   .overallTable {
     min-width: 640px;

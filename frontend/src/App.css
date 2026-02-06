@@ -40,3 +40,7 @@ html, body {
     transform: rotate(360deg);
   }
 }
+.app-container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
