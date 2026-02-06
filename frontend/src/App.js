@@ -9,6 +9,26 @@ import Round5 from "./Pages/Round5";
 import Round6 from "./Pages/Round6";
 import Overall from "./Pages/Overall";
 
+function Home() {
+  return (
+    <div className="round-container home-container">
+      <div className="home-card">
+        <h1 className="home-title">WELCOME TO THE 2026 RACE TO PHUKET</h1>
+
+        <div className="home-names">
+          <div>JAMES BELLIS</div>
+          <div>GAURAV DEY</div>
+          <div>FRAZER FINDLAY</div>
+          <div>ALEX HOLLANDS</div>
+          <div>MARK LAING</div>
+          <div>EOIN REILLY</div>
+          <div>JAKE STONES</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <Router>
@@ -17,8 +37,8 @@ export default function App() {
           style={{
             padding: "10px",
             backgroundColor: "#0a1428",
-            overflowX: "auto",     // ✅ allows horizontal swipe
-            whiteSpace: "nowrap",  // ✅ keeps items in one line
+            overflowX: "auto",
+            whiteSpace: "nowrap",
           }}
         >
           <ul
@@ -28,7 +48,7 @@ export default function App() {
               gap: "15px",
               margin: 0,
               padding: 0,
-              flexWrap: "nowrap",   // ✅ stops wrapping to 2 lines
+              flexWrap: "nowrap",
             }}
           >
             <li><Link to="/" style={{ color: "white", textDecoration: "none" }}>Home</Link></li>
@@ -43,14 +63,7 @@ export default function App() {
         </nav>
 
         <Routes>
-          <Route
-            path="/"
-            element={
-              <h1 style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
-                Welcome to the Golf Tournament
-              </h1>
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/round1" element={<Round1 />} />
           <Route path="/round2" element={<Round2 />} />
           <Route path="/round3" element={<Round3 />} />

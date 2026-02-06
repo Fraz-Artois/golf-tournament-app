@@ -205,3 +205,62 @@ td.mp-bronze {
   color: #bfc1c5 !important;
   font-weight: 800 !important;
 }
+/* ================= HOME PAGE ================= */
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-card {
+  background: rgba(10, 20, 40, 0.75);
+  border: 2px solid rgba(247, 216, 124, 0.6);
+  border-radius: 18px;
+  padding: 40px 50px;
+  max-width: 820px;
+  text-align: center;
+
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.6),
+    inset 0 0 18px rgba(247,216,124,0.08);
+}
+
+.home-title {
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #f7d87c;
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.home-names {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  font-size: 1.05rem;
+  letter-spacing: 0.6px;
+  color: #f5f7fb;
+}
+
+.home-names div {
+  padding: 6px 0;
+}
+
+/* Mobile polish */
+@media (max-width: 900px) {
+  .home-card {
+    padding: 28px 22px;
+  }
+
+  .home-title {
+    font-size: 1.35rem;
+  }
+
+  .home-names {
+    font-size: 0.95rem;
+  }
+}
