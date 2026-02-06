@@ -2,32 +2,43 @@
 .round-container {
   background-color: #071426;
 
-  /* Layer 1: repeating logo pattern
-     Layer 2: dark gradient overlay */
+  /* 3 layers:
+     1) dark overlay (top) to tone everything down
+     2) repeating logo pattern (middle)
+     3) base gradient (bottom) for depth
+  */
   background-image:
+    linear-gradient(rgba(7,20,38,0.88), rgba(7,20,38,0.88)),
     url("../assets/round-bg.jpg"),
-    linear-gradient(
-      rgba(15, 25, 45, 0.75),
-      rgba(15, 25, 45, 0.75)
-    );
+    linear-gradient(rgba(15,25,45,0.55), rgba(70,85,120,0.35));
 
-  /* Logo repeats, gradient covers */
-  background-repeat: repeat, no-repeat;
+  background-repeat: no-repeat, repeat, no-repeat;
 
-  /* Control logo size (smaller = more subtle pattern) */
-  background-size: 200px 200px, cover;
+  /* Make the logo smaller + less obviously tiled */
+  background-size: cover, 320px 320px, cover;
 
-  /* Logo tiles from top-left, gradient centered */
-  background-position: top left, center;
+  /* Tile from top-left; overlays centered */
+  background-position: center, top left, center;
 
-  /* Critical for mobile: no fixed on logo layer */
-  background-attachment: scroll, fixed;
+  /* Mobile-safe */
+  background-attachment: scroll, scroll, fixed;
 
   color: #f5f7fb;
   font-family: "Poppins", sans-serif;
   padding: 40px;
   min-height: 100vh;
 }
+
+/* ================= MOBILE ================= */
+@media (max-width: 900px) {
+  .round-container {
+    padding: 20px 12px;
+
+    /* Slightly smaller pattern on phones */
+    background-size: cover, 260px 260px, cover;
+  }
+}
+
 
 
 /* ================= ROUND TITLE (TOP BUBBLE) ================= */
