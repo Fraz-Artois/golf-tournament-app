@@ -1,14 +1,34 @@
 /* ================= PAGE ================= */
 .round-container {
-  background:
-    linear-gradient(rgba(15,25,45,0.45), rgba(70,85,120,0.35)),
-    url("../assets/round-bg.jpg") center/70% no-repeat;
-  background-attachment: fixed;
+  background-color: #071426;
+
+  /* Layer 1: repeating logo pattern
+     Layer 2: dark gradient overlay */
+  background-image:
+    url("../assets/round-bg.jpg"),
+    linear-gradient(
+      rgba(15, 25, 45, 0.75),
+      rgba(15, 25, 45, 0.75)
+    );
+
+  /* Logo repeats, gradient covers */
+  background-repeat: repeat, no-repeat;
+
+  /* Control logo size (smaller = more subtle pattern) */
+  background-size: 200px 200px, cover;
+
+  /* Logo tiles from top-left, gradient centered */
+  background-position: top left, center;
+
+  /* Critical for mobile: no fixed on logo layer */
+  background-attachment: scroll, fixed;
+
   color: #f5f7fb;
   font-family: "Poppins", sans-serif;
   padding: 40px;
   min-height: 100vh;
 }
+
 
 /* ================= ROUND TITLE (TOP BUBBLE) ================= */
 .round-title {
